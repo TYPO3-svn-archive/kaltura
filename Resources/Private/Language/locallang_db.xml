@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'kaltura'</description>
+		<labelContext type="array">
+		</labelContext>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="videobox">Video Box</label>
+			<label index="video_box.content">Kaltura Video</label>
+			<label index="video_box.choose_type">Choose type</label>
+			<label index="video_box.choose_type.video">Single video</label>
+			<label index="video_box.choose_type.playlist">Video playlist</label>
+			<label index="video_box.playlist">Kaltura Playlist</label>
+			<label index="video_box.width">Video player width (px)</label>
+			<label index="video_box.skin">Choose video player skin</label>
+		</languageKey>
+	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
+</T3locallang>

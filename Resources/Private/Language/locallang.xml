@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for the Kaltura extension in the FRONTEND</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="bad_configuration">Extension is missing some configuration. Please set it in backend.</label>
+			<label index="status_unknown">This viedo status is currently unknown. If this does not resolve in few minutes, please contact support@pixelant.se</label>
+			<label index="status_blocked">This video has been blocked.</label>
+			<label index="status_deleted">This video has been deleted.</label>
+			<label index="status_error_converting">There was error in converting process. Please try again or check if the video file is not broken.</label>
+			<label index="status_error_importing">There was an error in importing process. Please contact server administrator to check if the server can communicate with kaltura servers.</label>
+			<label index="status_import">Video is being imported to Kaltura servers. Will be available in few minutes.</label>
+			<label index="status_infected">Video has been flagged as infected with virus.</label>
+			<label index="status_moderate">Video is being moderated. It will be shown after it has been approved.</label>
+			<label index="status_no_content">There is no video file in this entry. This indicates problem with video upload.</label>
+			<label index="status_pending">Video is currently pending.</label>
+			<label index="status_preconvert">Video is being preconverted. Please wait few more minutes to be able to play it.</label>
+		</languageKey>
+	</data>
+	<orig_hash type="array">
+	</orig_hash>
+	<orig_text type="array">
+	</orig_text>
+</T3locallang>

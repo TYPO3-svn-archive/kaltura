@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<T3DataStructure>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<settings.type>
+				<TCEforms>
+					<label>LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.choose_type</label>
+					<onChange>reload</onChange>
+					<config type="array">
+						<type>radio</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+                    <numIndex index="0">LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.choose_type.video</numIndex>
+                    <numIndex index="1">0</numIndex>
+                  </numIndex>
+                  <numIndex index="1" type="array">
+                    <numIndex index="0">LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.choose_type.playlist</numIndex>
+                    <numIndex index="1">1</numIndex>
+                  </numIndex>
+						</items>
+						<default>0</default>
+						<eval>required</eval>
+					</config>
+				</TCEforms>
+			</settings.type>
+			<settings.kalturaContent>
+				<TCEforms>
+					<label>LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.content</label>
+					<displayCond>FIELD:settings.type:REQ:false</displayCond>
+					<config type="array">
+						<type>select</type>
+						<items type="array">
+						</items>
+						<itemsProcFunc>Tx_Kaltura_Controller_VideoBoxController-&gt;user_listVideosAction</itemsProcFunc>
+						<maxitems>1</maxitems>
+						<size>1</size>
+						<eval>required</eval>
+					</config>
+				</TCEforms>
+			</settings.kalturaContent>
+			<settings.kalturaPlaylist>
+				<TCEforms>
+					<label>LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.playlist</label>
+					<displayCond>FIELD:settings.type:REQ:true</displayCond>
+					<config type="array">
+						<type>select</type>
+						<items type="array">
+		           </items>
+						<itemsProcFunc>Tx_Kaltura_Controller_VideoBoxController-&gt;user_listPlaylistsAction</itemsProcFunc>
+						<maxitems>1</maxitems>
+						<size>1</size>
+						<eval>required</eval>
+					</config>
+				</TCEforms>
+			</settings.kalturaPlaylist>
+			<settings.width>
+				<TCEforms>
+					<label>LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.width</label>
+					<config type="array">
+						<type>input</type>
+						<eval>trim,integer</eval>
+						<size>30</size>
+						<default>480</default>
+					</config>
+				</TCEforms>
+			</settings.width>
+			<settings.skin>
+				<TCEforms>
+					<label>LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.skin</label>
+					<config type="array">
+						<type>select</type>
+						<items type="array">
+		           </items>
+						<itemsProcFunc>Tx_Kaltura_Controller_VideoBoxController-&gt;user_listPlayersAction</itemsProcFunc>
+						<maxitems>1</maxitems>
+						<size>1</size>
+					</config>
+				</TCEforms>
+			</settings.skin>
+		</el>
+	</ROOT>
+</T3DataStructure>

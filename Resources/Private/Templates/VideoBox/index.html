@@ -1,0 +1,70 @@
+<f:if condition="{entry}">
+<script type="text/javascript" src="http://www.kaltura.com/p/{partnerID}/sp/{subPartnerID}/embedIframeJs/uiconf_id/{playerUI}/partner_id/{partnerID}"></script>
+<div class="kaltura">
+<object id="kaltura_player_{uid}" 
+name="kaltura_player_{uid}" 
+type="application/x-shockwave-flash" 
+height="{height}" width="{settings.width}" 
+ 
+xmlns:dc="http://purl.org/dc/terms/" 
+xmlns:media="http://search.yahoo.com/searchmonkey/media/"  
+<f:if condition='{playlist}'><f:then>data="http://www.kaltura.com/index.php/kwidget/cache_st/{cacheTime}/wid/_{partnerID}/uiconf_id/{playerUI}</f:then><f:else>
+data="http://www.kaltura.com/index.php/kwidget/cache_st/{cacheTime}/wid/_{partnerID}/uiconf_id/{playerUI}/entry_id/{entry.id}"</f:else></f:if>
+>
+<param name="allowFullScreen" value="true" />
+<param name="allowNetworking" value="all" />
+<param name="wmode" value="opaque" />
+<param name="bgcolor" value="#000000" />
+<param name="flashVars" <f:if condition='{playlist}'><f:then>value="playlistAPI.autoInsert=true&playlistAPI.kpl0Name={entry.name}&playlistAPI.kpl0Url=http%3A%2F%2Fwww.kaltura.com%2Findex.php%2Fpartnerservices2%2Fexecuteplaylist%3Fuid%3D%26partner_id%3D{partnerID}%26subp_id%3D{subPartnerID}%26format%3D8%26ks%3D%7Bks%7D%26playlist_id%3D{entry.id}&"</f:then><f:else>value="&amp;"</f:else></f:if> />
+<param name="movie" value="http://www.kaltura.com/index.php/kwidget/cache_st/{cacheTime}/wid/_{partnerID}/uiconf_id/{playerUI}/entry_id/{entry.id}" />
+<a href="http://corp.kaltura.com">video platform</a> 
+<a href="http://corp.kaltura.com/video_platform/video_management">video management</a> 
+<a href="http://corp.kaltura.com/solutions/video_solution">video solutions</a> 
+<a href="http://corp.kaltura.com/video_platform/video_publishing">video player</a> 
+<a rel="media:thumbnail" href="{entry.thumbnailUrl}"></a> 
+<span id="kaltura_id1"></span>
+<span id="kaltura_id2"></span> 
+<span id="kaltura_id3"></span>
+<span id="kaltura_id4"></span> 
+<span id="kaltura_id5"></span> 
+</object>
+</div>
+</f:if>
+
+<f:if condition="{error}">
+<div class="kaltura kaltura-error">
+{error}
+</div>
+</f:if>
+
+<script type="text/javascript">
+
+  var addPlayerElements = document.getElementById('kaltura_player_{uid}');
+  addPlayerElements.setAttribute('allowTransparent','true');
+  addPlayerElements.setAttribute('allowNetworking','all');
+  addPlayerElements.setAttribute('allowScriptAccess','always');
+  addPlayerElements.setAttribute('bgcolor','#000000');
+  addPlayerElements.setAttribute('rel','media:video');
+  addPlayerElements.setAttribute('resource',addPlayerElements.getAttribute('data'));
+  
+  addPlayerElements = document.getElementById('kaltura_id1');
+  addPlayerElements.setAttribute('property','dc:description');
+  addPlayerElements.setAttribute('content','');
+
+  addPlayerElements = document.getElementById('kaltura_id2');
+  addPlayerElements.setAttribute('property','media:title');
+  addPlayerElements.setAttribute('content','{entry.name}');
+
+  addPlayerElements = document.getElementById('kaltura_id3');
+  addPlayerElements.setAttribute('property','media:width');
+  addPlayerElements.setAttribute('content','{settings.width}');
+
+  addPlayerElements = document.getElementById('kaltura_id4');
+  addPlayerElements.setAttribute('property','media:height');
+  addPlayerElements.setAttribute('content','{height}');
+
+  addPlayerElements = document.getElementById('kaltura_id5');
+  addPlayerElements.setAttribute('property','media:type');
+  addPlayerElements.setAttribute('content','application/x-shockwave-flash');
+
+</script>

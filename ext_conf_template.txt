@@ -1,0 +1,14 @@
+# cat=basic//010; type=int; label= Kaltura Partner ID (Obtained on registration or Kaltura Console -> Settings -> Integration Settings)
+partnerID = 
+
+# cat=basic//020; type=int; label= Kaltura Sub Partner ID (Obtained on registration or Kaltura Console -> Settings -> Integration Settings)
+subPartnerID = 
+
+# cat=basic//030; type=text; label= Kaltura Admin Secret (Kaltura Console -> Settings -> Integration Settings)
+adminSecret = 
+
+# cat=basic//040; type=text; label= Kaltura User ID (User from Console (login to console))
+userID = 
+
+# cat=basic//050; type=text; label= Default transcode profile ID (Kaltura Console -> Settings -> Transcoding Settings -> Switch to Advanced Mode)
+transcodeProfile = 
