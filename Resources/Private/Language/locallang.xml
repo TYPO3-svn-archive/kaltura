@@ -7,7 +7,7 @@
 	<data type="array">
 		<languageKey index="default" type="array">
 			<label index="bad_configuration">Extension is missing some configuration. Please set it in backend.</label>
-			<label index="status_unknown">This viedo status is currently unknown. If this does not resolve in few minutes, please contact support@pixelant.se</label>
+			<label index="status_unknown">This video status is currently unknown. If this does not resolve in few minutes, please contact support</label>
 			<label index="status_blocked">This video has been blocked.</label>
 			<label index="status_deleted">This video has been deleted.</label>
 			<label index="status_error_converting">There was error in converting process. Please try again or check if the video file is not broken.</label>
@@ -18,6 +18,7 @@
 			<label index="status_no_content">There is no video file in this entry. This indicates problem with video upload.</label>
 			<label index="status_pending">Video is currently pending.</label>
 			<label index="status_preconvert">Video is being preconverted. Please wait few more minutes to be able to play it.</label>
+			<label index="problem_with_video">There is some problem with the video. We are trying to resolve it as soon as possible. Thank you for your patience.</label>
 		</languageKey>
 	</data>
 	<orig_hash type="array">

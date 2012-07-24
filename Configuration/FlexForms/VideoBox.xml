@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <T3DataStructure>
+	<meta>
+		<langDisable>1</langDisable>
+	</meta>
 	<ROOT>
 		<type>array</type>
 		<el>
@@ -11,13 +14,13 @@
 						<type>radio</type>
 						<items type="array">
 							<numIndex index="0" type="array">
-                    <numIndex index="0">LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.choose_type.video</numIndex>
-                    <numIndex index="1">0</numIndex>
-                  </numIndex>
-                  <numIndex index="1" type="array">
-                    <numIndex index="0">LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.choose_type.playlist</numIndex>
-                    <numIndex index="1">1</numIndex>
-                  </numIndex>
+								<numIndex index="0">LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.choose_type.video</numIndex>
+								<numIndex index="1">0</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.choose_type.playlist</numIndex>
+								<numIndex index="1">1</numIndex>
+							</numIndex>
 						</items>
 						<default>0</default>
 						<eval>required</eval>
@@ -30,8 +33,7 @@
 					<displayCond>FIELD:settings.type:REQ:false</displayCond>
 					<config type="array">
 						<type>select</type>
-						<items type="array">
-						</items>
+						<items type="array"></items>
 						<itemsProcFunc>Tx_Kaltura_Controller_VideoBoxController-&gt;user_listVideosAction</itemsProcFunc>
 						<maxitems>1</maxitems>
 						<size>1</size>
@@ -45,8 +47,7 @@
 					<displayCond>FIELD:settings.type:REQ:true</displayCond>
 					<config type="array">
 						<type>select</type>
-						<items type="array">
-		           </items>
+						<items type="array"></items>
 						<itemsProcFunc>Tx_Kaltura_Controller_VideoBoxController-&gt;user_listPlaylistsAction</itemsProcFunc>
 						<maxitems>1</maxitems>
 						<size>1</size>
@@ -70,8 +71,7 @@
 					<label>LLL:EXT:kaltura/Resources/Private/Language/locallang_db.xml:video_box.skin</label>
 					<config type="array">
 						<type>select</type>
-						<items type="array">
-		           </items>
+						<items type="array"></items>
 						<itemsProcFunc>Tx_Kaltura_Controller_VideoBoxController-&gt;user_listPlayersAction</itemsProcFunc>
 						<maxitems>1</maxitems>
 						<size>1</size>

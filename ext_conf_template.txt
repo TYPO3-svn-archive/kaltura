@@ -1,3 +1,6 @@
+# cat=basic//060; type=text; label= Host of Kaltura service
+kalturaHost = 
+
 # cat=basic//010; type=int; label= Kaltura Partner ID (Obtained on registration or Kaltura Console -> Settings -> Integration Settings)
 partnerID = 
 
@@ -9,6 +12,3 @@ adminSecret =
 
 # cat=basic//040; type=text; label= Kaltura User ID (User from Console (login to console))
 userID = 
-
-# cat=basic//050; type=text; label= Default transcode profile ID (Kaltura Console -> Settings -> Transcoding Settings -> Switch to Advanced Mode)
-transcodeProfile = 

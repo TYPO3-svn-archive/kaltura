@@ -2,7 +2,8 @@
 $extensionClassesPath = t3lib_extMgm::extPath('kaltura') . 'Classes/';
 
 return array(
-	'kalturaclient' => t3lib_extMgm::extPath('kaltura', 'Classes/Kaltura/KalturaClient.php'),
-	'kalturaconfiguration' => t3lib_extMgm::extPath('kaltura', 'Classes/Kaltura/KalturaClient.php'),
+	'kalturaclient'								=> $extensionClassesPath . 'Kaltura/KalturaClient.php',
+	'kalturaconfiguration'						=> $extensionClassesPath . 'Kaltura/KalturaClient.php',
+	'tx_kaltura_controller_videoboxcontroller'	=> $extensionClassesPath . 'Controller/VideoBoxController.php'
 );
 ?>

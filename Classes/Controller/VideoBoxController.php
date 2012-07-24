@@ -1,24 +1,4 @@
 <?php
-/*                                                                        *
- * This script belongs to the FLOW3 package "Fluid".                      *
- *                                                                        *
- * It is free software; you can redistribute it and/or modify it under    *
- * the terms of the GNU Lesser General Public License as published by the *
- * Free Software Foundation, either version 3 of the License, or (at your *
- * option) any later version.                                             *
- *                                                                        *
- * This script is distributed in the hope that it will be useful, but     *
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHAN-    *
- * TABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser       *
- * General Public License for more details.                               *
- *                                                                        *
- * You should have received a copy of the GNU Lesser General Public       *
- * License along with the script.                                         *
- * If not, see http://www.gnu.org/licenses/lgpl.html                      *
- *                                                                        *
- * The TYPO3 project - inspiring people to share!                         *
- *                                                                        */
-
 /**
  * VideoBox controller.
  *
@@ -36,6 +16,7 @@ class Tx_Kaltura_Controller_VideoBoxController extends Tx_Extbase_MVC_Controller
 	 * @return string
 	 */
 	public function indexAction() {
+		try {
 		$conf = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['kaltura']);
 
 		if ($conf['partnerID'] == 0 || $conf['adminSecret'] == '' || $conf['userID'] == '')
@@ -55,6 +36,9 @@ class Tx_Kaltura_Controller_VideoBoxController extends Tx_Extbase_MVC_Controller
 		$this->view->assign('playerUI', $this->settings['skin']);
 		
 		$configuration = t3lib_div::makeInstance('KalturaConfiguration', $conf['partnerID']);
+		$host = ($conf['kalturaHost'] != '')?$conf['kalturaHost'] : 'www.kaltura.com';
+		$configuration->serviceUrl = 'http://'.$host.'/';
+		$this->view->assign('kalturaUrl', $host);
 		/**
 		 * @var KalturaClient
 		 */
@@ -74,6 +58,9 @@ class Tx_Kaltura_Controller_VideoBoxController extends Tx_Extbase_MVC_Controller
 		} else {
 			$entry = $client->playlist->get($this->settings['kalturaPlaylist']);
 			$this->view->assign("entry", $entry);
+		}
+		} catch (KalturaException $e) {
+			$this->view->assign("error",Tx_Extbase_Utility_Localization::translate('problem_with_video', 'kaltura'));
 		}
 	}
 
@@ -128,21 +115,29 @@ class Tx_Kaltura_Controller_VideoBoxController extends Tx_Extbase_MVC_Controller
 			return $this->view->render();
 		}
 
-		$configuration = t3lib_div::makeInstance('KalturaConfiguration', $conf['partnerID']);
-		/**
-		 * @var KalturaClient
-		 */
-		$client = t3lib_div::makeInstance('KalturaClient', $configuration);
-		$ks = $client->session->start($conf['adminSecret'], $conf['userID'], KalturaSessionType::ADMIN);
-		$client->setKs($ks);
+		try {
+			$configuration = t3lib_div::makeInstance('KalturaConfiguration', $conf['partnerID']);
+			$host = ($conf['kalturaHost'] != '')?$conf['kalturaHost'] : 'www.kaltura.com';
+			$configuration->serviceUrl = 'http://'.$host.'/';
+			/**
+			 * @var KalturaClient
+			 */
+			$client = t3lib_div::makeInstance('KalturaClient', $configuration);
+			$ks = $client->session->start($conf['adminSecret'], $conf['userID'], KalturaSessionType::ADMIN);
+			$client->setKs($ks);
 
-		$playerss = $client->uiConf->listAction();
-		$add = array();
-		foreach ($playerss as $players) 
-			if (is_array($players))
-				foreach ($players as $player)
-					$add[] = array((string)$player->name,intval($player->id));
-		$config['items'] = array_merge($config['items'],$add);
+			$playerss = $client->uiConf->listAction();
+			$add = array();
+			foreach ($playerss as $players) 
+				if (is_array($players))
+					foreach ($players as $player)
+						$add[] = array((string)$player->name,intval($player->id));
+
+			$config['items'] = array_merge($config['items'],$add);
+
+		} catch (KalturaException $e) {
+			$config['items'] = array_merge($config['items'],array(array('Could not connect to kaltura host with provided credentials','0')));
+		}
 		return $config;
 	}
 
@@ -160,27 +155,35 @@ class Tx_Kaltura_Controller_VideoBoxController extends Tx_Extbase_MVC_Controller
 			die();
 		}
 
-		$configuration = t3lib_div::makeInstance('KalturaConfiguration', $conf['partnerID']);
-		/**
-		 * @var KalturaClient
-		 */
-		$client = t3lib_div::makeInstance('KalturaClient', $configuration);
-		$ks = $client->session->start($conf['adminSecret'], $conf['userID'], KalturaSessionType::ADMIN);
-		$client->setKs($ks);
+		try {
+			$configuration = t3lib_div::makeInstance('KalturaConfiguration', $conf['partnerID']);
+			$host = ($conf['kalturaHost'] != '')?$conf['kalturaHost'] : 'www.kaltura.com';
+			$configuration->serviceUrl = 'http://'.$host.'/';
+			/**
+			 * @var KalturaClient
+			 */
+			$client = t3lib_div::makeInstance('KalturaClient', $configuration);
+			$ks = $client->session->start($conf['adminSecret'], $conf['userID'], KalturaSessionType::ADMIN);
+			$client->setKs($ks);
 
-		/**
-		 * @var KalturaMediaEntryFilter
-		 */
-		$filter = t3lib_div::makeInstance('KalturaMediaEntryFilter');
-		$filter->statusEqual = KalturaEntryStatus::READY;
-		$filter->mediaTypeEqual = KalturaMediaType::VIDEO;
-		$mediass = $client->media->listAction($filter);
-		$add = array();
-		foreach ($mediass as $medias) 
-			if (is_array($medias))
-				foreach ($medias as $entry)
-					$add[] = array((string)$entry->name,(string)$entry->id);
-		$config['items'] = array_merge($config['items'],$add);
+			/**
+			 * @var KalturaMediaEntryFilter
+			 */
+			$filter = t3lib_div::makeInstance('KalturaMediaEntryFilter');
+			$filter->statusEqual = KalturaEntryStatus::READY;
+			$filter->mediaTypeEqual = KalturaMediaType::VIDEO;
+			$filter2 = t3lib_div::makeInstance('KalturaFilterPager');
+			$filter2->pageSize = 300;
+			$mediass = $client->media->listAction($filter,$filter2);
+			$add = array();
+			foreach ($mediass as $medias) 
+				if (is_array($medias))
+					foreach ($medias as $entry)
+						$add[] = array((string)$entry->name,(string)$entry->id);
+			$config['items'] = array_merge($config['items'],$add);
+		} catch (KalturaException $e) {
+			$config['items'] = array_merge($config['items'],array(array('Could not connect to kaltura host with provided credentials','0')));
+		}
 		return $config;
 	}
 
@@ -198,21 +201,28 @@ class Tx_Kaltura_Controller_VideoBoxController extends Tx_Extbase_MVC_Controller
 			die();
 		}
 
-		$configuration = t3lib_div::makeInstance('KalturaConfiguration', $conf['partnerID']);
-		/**
-		 * @var KalturaClient
-		 */
-		$client = t3lib_div::makeInstance('KalturaClient', $configuration);
-		$ks = $client->session->start($conf['adminSecret'], $conf['userID'], KalturaSessionType::ADMIN);
-		$client->setKs($ks);
+		try {
+			$configuration = t3lib_div::makeInstance('KalturaConfiguration', $conf['partnerID']);
+			$host = ($conf['kalturaHost'] != '')?$conf['kalturaHost'] : 'www.kaltura.com';
+			$configuration->serviceUrl = 'http://'.$host.'/';
+			/**
+			 * @var KalturaClient
+			 */
+			$client = t3lib_div::makeInstance('KalturaClient', $configuration);
+			$ks = $client->session->start($conf['adminSecret'], $conf['userID'], KalturaSessionType::ADMIN);
+			$client->setKs($ks);
 
-		$playlistss = $client->playlist->listAction();
-		$add = array();
-		foreach ($playlistss as $playlists) 
-			if (is_array($playlists))
-				foreach ($playlists as $playlist)
-					$add[] = array((string)$playlist->name,(string)$playlist->id);
-		$config['items'] = array_merge($config['items'],$add);
+			$playlistss = $client->playlist->listAction();
+			$add = array();
+			foreach ($playlistss as $playlists) 
+				if (is_array($playlists))
+					foreach ($playlists as $playlist)
+						$add[] = array((string)$playlist->name,(string)$playlist->id);
+
+			$config['items'] = array_merge($config['items'],$add);
+		} catch (KalturaException $e) {
+			$config['items'] = array_merge($config['items'],array(array('Could not connect to kaltura host with provided credentials','0')));
+		}
 		return $config;
 	}
 }
